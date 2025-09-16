@@ -15,7 +15,6 @@ public class CribaDeErastotenes {
         printArreglo(lista);
         eliminar();
         printArreglo(lista);
-
         printArreglo(cribaLogLog(20));
     }
 
