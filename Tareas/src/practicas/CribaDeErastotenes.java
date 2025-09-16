@@ -10,14 +10,20 @@ public class CribaDeErastotenes {
     private final static ArrayList<Boolean> eliminar = new ArrayList<>();
 
     public static void main(String[] args) {
-        initArreglo(20);
+        long tiempo1 = System.nanoTime();
+        System.out.printf("%.3fms", (float) tiempo1 / 1000000);
+        initArreglo(20000);
         criba();
         printArreglo(lista);
         eliminar();
         printArreglo(lista);
-        printArreglo(cribaLogLog(20));
+        long tiempo2 = System.nanoTime();
+        System.out.printf("%.3fms", (float) (tiempo2 - tiempo1) / 1000000);
+        printArreglo(cribaLogLog(20000));
+        System.out.printf("%.3fms", (float) (System.nanoTime() - tiempo2) / 1000000);
     }
 
+    // O(n^2)
     public static void criba() {
         for(int ind = 0; ind < lista.size(); ind++) {
             if(eliminar.get(ind)) continue;
@@ -31,6 +37,7 @@ public class CribaDeErastotenes {
         }
     }
 
+    // O(nloglogn)
     public static List<Integer> cribaLogLog(int n) {
         boolean[] isPrime = new boolean[n + 1];
         Arrays.fill(isPrime, true);

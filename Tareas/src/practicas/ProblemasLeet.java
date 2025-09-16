@@ -4,7 +4,6 @@ public class ProblemasLeet {
 
     public static void main(String[] args) {
         System.out.println(isPalindrome(12121));
-
     }
 
     public static boolean isPalindrome(int x) {
