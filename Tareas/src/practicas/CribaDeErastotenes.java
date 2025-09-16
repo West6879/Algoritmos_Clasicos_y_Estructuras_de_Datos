@@ -1,6 +1,8 @@
 package practicas;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CribaDeErastotenes {
 
@@ -10,13 +12,15 @@ public class CribaDeErastotenes {
     public static void main(String[] args) {
         initArreglo(20);
         criba();
-        printArreglo();
+        printArreglo(lista);
         eliminar();
-        printArreglo();
+        printArreglo(lista);
+
+        printArreglo(cribaLogLog(20));
     }
 
     public static void criba() {
-        for(int ind = 0; ind <lista.size(); ind++) {
+        for(int ind = 0; ind < lista.size(); ind++) {
             if(eliminar.get(ind)) continue;
             int divisor = lista.get(ind);
             if(Math.pow(divisor, 2) >= lista.get(lista.size()-1)) break;
@@ -26,6 +30,24 @@ public class CribaDeErastotenes {
                 }
             }
         }
+    }
+
+    public static List<Integer> cribaLogLog(int n) {
+        boolean[] isPrime = new boolean[n + 1];
+        Arrays.fill(isPrime, true);
+        isPrime[0] = isPrime[1] = true;
+        for(int i = 2; i * i <= n; i++) {
+            if(isPrime[i]) {
+                for(int j = i * i; j <= n; j += i) {
+                    isPrime[j] = false;
+                }
+            }
+        }
+        List<Integer> primos = new ArrayList<>();
+        for(int ind = 2; ind < isPrime.length; ind++) {
+            if(isPrime[ind]) primos.add(ind);
+        }
+        return primos;
     }
 
     public static void eliminar() {
@@ -44,12 +66,12 @@ public class CribaDeErastotenes {
         }
     }
 
-    public static void printArreglo() {
-        System.out.println("\n\n");
-        for(Integer ind : lista) {
+    public static void printArreglo(List<Integer> list) {
+        System.out.println("\n");
+        for(Integer ind : list) {
             System.out.print(" " + ind + " ");
         }
-        System.out.println("\n\n");
+        System.out.println("\n");
     }
 
 }
