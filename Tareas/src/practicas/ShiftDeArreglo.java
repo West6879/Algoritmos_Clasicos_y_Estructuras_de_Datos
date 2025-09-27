@@ -1,11 +1,13 @@
 package practicas;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ShiftDeArreglo {
 
     public static void main(String[] args) {
-        ArrayList<String> lista = new ArrayList<>();
+        List<String> lista = new ArrayList<>();
         lista.add("A");
         lista.add("B");
         lista.add("C");
@@ -16,14 +18,22 @@ public class ShiftDeArreglo {
         lista.add("H");
 
         System.out.println("Inicio:" + lista + "\n");
-        shift(lista, 6);
+        shift(lista, 9);
         System.out.println("\nFinal:" + lista);
     }
 
+    public static void shift2(List<String> lista, int T) {
+        if(lista.size() % 2 == 0) return;
+        T = T % lista.size();
+
+    }
+
     /*
-        Funcion para rotar subarreglos del arreglo, cada llamada rota una vez hacia la derecha.
+        Algoritmo en complejidad O(T * n), en el peor de los casos es O(n^2)
     */
-    public static void rotar(ArrayList<String> lista, int inicio, int fin) {
+
+    // Funcion para rotar subarreglos del arreglo, cada llamada rota una vez hacia la derecha.
+    public static void rotar(List<String> lista, int inicio, int fin) {
         String ultimo = lista.get(fin);
         for(int i = fin; i > inicio; i--) {
             lista.set(i, lista.get(i - 1));
@@ -32,11 +42,11 @@ public class ShiftDeArreglo {
         System.out.println(lista.subList(inicio, fin + 1)); // Descomentar si desea ver el proceso de rotación
     }
 
-    // T tiene que estar entre 1 y n-1, osea no puede ser mayor que el tamaño del array
-    public static void shift(ArrayList<String> lista, int T) {
+    // Funcion para hacer el proceso completo en ambas mitades
+    public static void shift(List<String> lista, int T) {
         if(lista.size() % 2 != 0) return;
-        if(T > lista.size() - 1) return; // Descomentar esta linea si desea T > n-1
-        int mitad_1, mitad_2;
+        T = T % lista.size(); // Prevenir que T > n - 1
+        int mitad_1, mitad_2; // mitad_1: cantidad que se movera la primera mitad, mismo para mitad_2
         int medio = lista.size() / 2; // Medio del array
 
         if(T % 2 == 0) {
