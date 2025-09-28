@@ -1,0 +1,115 @@
+Index: Tareas/src/practicas/ShiftDeArreglo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package practicas;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.LinkedList;\r\nimport java.util.List;\r\n\r\npublic class ShiftDeArreglo {\r\n\r\n    public static void main(String[] args) {\r\n        List<String> lista = new ArrayList<>();\r\n        lista.add(\"A\");\r\n        lista.add(\"B\");\r\n        lista.add(\"C\");\r\n        lista.add(\"D\");\r\n        lista.add(\"E\");\r\n        lista.add(\"F\");\r\n        lista.add(\"G\");\r\n        lista.add(\"H\");\r\n\r\n        System.out.println(\"Inicio:\" + lista + \"\\n\");\r\n        shift(lista, 9);\r\n        System.out.println(\"\\nFinal:\" + lista);\r\n    }\r\n\r\n    public static void shift2(List<String> lista, int T) {\r\n        if(lista.size() % 2 == 0) return;\r\n        T = T % lista.size();\r\n\r\n    }\r\n\r\n    /*\r\n        Algoritmo en complejidad O(T * n), en el peor de los casos es O(n^2)\r\n    */\r\n\r\n    // Funcion para rotar subarreglos del arreglo, cada llamada rota una vez hacia la derecha.\r\n    public static void rotar(List<String> lista, int inicio, int fin) {\r\n        String ultimo = lista.get(fin);\r\n        for(int i = fin; i > inicio; i--) {\r\n            lista.set(i, lista.get(i - 1));\r\n        }\r\n        lista.set(inicio, ultimo);\r\n        System.out.println(lista.subList(inicio, fin + 1)); // Descomentar si desea ver el proceso de rotación\r\n    }\r\n\r\n    // Funcion para hacer el proceso completo en ambas mitades\r\n    public static void shift(List<String> lista, int T) {\r\n        if(lista.size() % 2 != 0) return;\r\n        T = T % lista.size(); // Prevenir que T > n - 1\r\n        int mitad_1, mitad_2; // mitad_1: cantidad que se movera la primera mitad, mismo para mitad_2\r\n        int medio = lista.size() / 2; // Medio del array\r\n\r\n        if(T % 2 == 0) {\r\n            mitad_1 = mitad_2 = T/2;\r\n        } else {\r\n            mitad_1 = (T/2) + 1;\r\n            mitad_2 = T/2;\r\n        }\r\n\r\n        // Rotacion de la primera mitad\r\n        for(int i = 0; i < mitad_1; i++) {\r\n            rotar(lista, 0, medio - 1);\r\n        }\r\n\r\n        System.out.println();\r\n\r\n        // Rotacion de la segunda mitad\r\n        for(int j = 0; j < mitad_2; j++) {\r\n            rotar(lista, medio, lista.size() - 1);\r\n        }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Tareas/src/practicas/ShiftDeArreglo.java b/Tareas/src/practicas/ShiftDeArreglo.java
+--- a/Tareas/src/practicas/ShiftDeArreglo.java	(revision b89edb6f448b85246e756e60c536873848cf9c12)
++++ b/Tareas/src/practicas/ShiftDeArreglo.java	(date 1759093294699)
+@@ -1,13 +1,11 @@
+ package practicas;
+ 
+ import java.util.ArrayList;
+-import java.util.LinkedList;
+-import java.util.List;
+ 
+ public class ShiftDeArreglo {
+ 
+     public static void main(String[] args) {
+-        List<String> lista = new ArrayList<>();
++        ArrayList<String> lista = new ArrayList<>();
+         lista.add("A");
+         lista.add("B");
+         lista.add("C");
+@@ -18,22 +16,14 @@
+         lista.add("H");
+ 
+         System.out.println("Inicio:" + lista + "\n");
+-        shift(lista, 9);
++        shift(lista, 6);
+         System.out.println("\nFinal:" + lista);
+     }
+ 
+-    public static void shift2(List<String> lista, int T) {
+-        if(lista.size() % 2 == 0) return;
+-        T = T % lista.size();
+-
+-    }
+-
+     /*
+-        Algoritmo en complejidad O(T * n), en el peor de los casos es O(n^2)
++        Funcion para rotar subarreglos del arreglo, cada llamada rota una vez hacia la derecha.
+     */
+-
+-    // Funcion para rotar subarreglos del arreglo, cada llamada rota una vez hacia la derecha.
+-    public static void rotar(List<String> lista, int inicio, int fin) {
++    public static void rotar(ArrayList<String> lista, int inicio, int fin) {
+         String ultimo = lista.get(fin);
+         for(int i = fin; i > inicio; i--) {
+             lista.set(i, lista.get(i - 1));
+@@ -42,11 +32,11 @@
+         System.out.println(lista.subList(inicio, fin + 1)); // Descomentar si desea ver el proceso de rotación
+     }
+ 
+-    // Funcion para hacer el proceso completo en ambas mitades
+-    public static void shift(List<String> lista, int T) {
++    // T tiene que estar entre 1 y n-1, osea no puede ser mayor que el tamaño del array
++    public static void shift(ArrayList<String> lista, int T) {
+         if(lista.size() % 2 != 0) return;
+-        T = T % lista.size(); // Prevenir que T > n - 1
+-        int mitad_1, mitad_2; // mitad_1: cantidad que se movera la primera mitad, mismo para mitad_2
++        if(T > lista.size() - 1) return; // Descomentar esta linea si desea T > n-1
++        int mitad_1, mitad_2;
+         int medio = lista.size() / 2; // Medio del array
+ 
+         if(T % 2 == 0) {
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.gitignore b/.gitignore
+--- a/.gitignore	(revision b89edb6f448b85246e756e60c536873848cf9c12)
++++ b/.gitignore	(date 1759093776499)
+@@ -1,0 +1,39 @@
++# IntelliJ IDEA
++.idea/
++*.iws
++*.iml
++*.ipr
++
++# Build directories
++out/
++build/
++target/
++bin/
++
++# Maven
++log/
++logs/
++*.log
++*.class
++*.jar
++*.war
++*.ear
++
++# Gradle
++.gradle/
++build/
++
++# NetBeans
++nbproject/private/
++build/
++nbbuild/
++dist/
++nbdist/
++.nb-gradle/
++
++# VS Code
++.vscode/
++
++# OS-specific
++.DS_Store
++Thumbs.db
