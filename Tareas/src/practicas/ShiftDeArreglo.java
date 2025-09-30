@@ -1,6 +1,7 @@
 package practicas;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,14 +19,48 @@ public class ShiftDeArreglo {
         lista.add("H");
 
         System.out.println("Inicio:" + lista + "\n");
-        shift(lista, 9);
+        shift(lista, 7);
         System.out.println("\nFinal:" + lista);
+
+        String[] arr = new String[]{"A", "B", "C", "D", "E", "F", "G", "H"};
+        shift2(arr, 7);
+        System.out.println(Arrays.toString(arr));
+
+
     }
 
-    public static void shift2(List<String> lista, int T) {
-        if(lista.size() % 2 == 0) return;
-        T = T % lista.size();
+    /*
+        Algoritmo en complejidad O(n), mas eficiente.
+     */
 
+    // Función principal para el shifteo de ambas mitades.
+    public static void shift2(String[] arr, int T) {
+        if(arr.length % 2 != 0) return;
+        int medio = arr.length / 2;
+        T = T % arr.length;
+        int left = (T + 1) / 2;
+        int right = T / 2;
+        rotar2(arr, 0, medio - 1, left);
+        rotar2(arr, medio, arr.length - 1, right);
+    }
+
+    // Funcion para rotar el subarreglo.
+    public static void rotar2(String[] arr, int inicio, int fin, int T) {
+        if(T == 0) return;
+        reverse(arr, inicio, fin);
+        reverse(arr, inicio, inicio + T - 1);
+        reverse(arr, inicio + T, fin);
+    }
+
+    // Funcion para voltear los subarreglos.
+    public static void reverse(String[] arr, int inicio, int fin) {
+        while(inicio < fin) {
+            String temp = arr[inicio];
+            arr[inicio] = arr[fin];
+            arr[fin] = temp;
+            inicio++;
+            fin--;
+        }
     }
 
     /*
