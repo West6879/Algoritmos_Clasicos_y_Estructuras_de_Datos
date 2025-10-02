@@ -3,34 +3,34 @@ package practicas;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class ShiftDeArreglo {
 
     public static void main(String[] args) {
-        List<String> lista = new ArrayList<>();
-        lista.add("A");
-        lista.add("B");
-        lista.add("C");
-        lista.add("D");
-        lista.add("E");
-        lista.add("F");
-        lista.add("G");
-        lista.add("H");
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Inicio:" + lista + "\n");
-        shift(lista, 7);
-        System.out.println("\nFinal:" + lista);
+        System.out.print("Introduce la secuencia de datos (separada por espacio): ");
+        String secuencia = scanner.nextLine().trim();
 
-        String[] arr = new String[]{"A", "B", "C", "D", "E", "F", "G", "H"};
-        shift2(arr, 7);
-        System.out.println(Arrays.toString(arr));
+        System.out.print("Introduce el valor de T: ");
+        int T = scanner.nextInt();
 
+        List<String> lista = new ArrayList<>(Arrays.asList(secuencia.split("\\s+")));
+        String[] arr = secuencia.split("\\s+");
 
+        System.out.println("\nInicio ArrayList: " + lista);
+        shift(lista, T);
+        System.out.println("Final ArrayList con shift: " + lista);
+
+        System.out.println("\nInicio Array: " + Arrays.toString(arr));
+        shift2(arr, T);
+        System.out.println("Final Array con shift2: " + Arrays.toString(arr));
     }
 
     /*
         Algoritmo en complejidad O(n), mas eficiente.
-     */
+    */
 
     // Función principal para el shifteo de ambas mitades.
     public static void shift2(String[] arr, int T) {

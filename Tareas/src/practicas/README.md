@@ -21,3 +21,6 @@ Una forma eficiente de resolver este algoritmo.
 ## MergeSort de Estudiantes
 Complejidad de tiempo: O(n log n)
 Complejidad espacial: O(n)
+Usa un mergesort clasico para organizar un ArrayList de 
+estudiantes. Usa el booleano ascendiente para determinar
+si organizar los indices de menor a mayor o vice versa.
